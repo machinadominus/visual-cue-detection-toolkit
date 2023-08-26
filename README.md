@@ -3,6 +3,8 @@
 # Facial Expression-Based Lie Detection System
 
 ![Project Banner](project_banner.png)
+![image](https://github.com/MachinaDominus/srp/assets/141066776/a1c3676b-0b2d-4a3a-9f83-1f0786ad2f97)
+
 
 ## Table of Contents
 
