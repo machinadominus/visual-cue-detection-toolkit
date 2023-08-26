@@ -39,17 +39,18 @@ Behavior Detection using Pre-trained Models: The project utilizes pre-trained de
 - Lip twitching
 - Flaring nostrils
 - Crossing arms
-**Real-time Detection: **The system provides real-time behavior detection through the webcam stream. It analyzes each frame and assesses the likelihood of each behavior being exhibited.
+  
+**Real-time Detection**:The system provides real-time behavior detection through the webcam stream. It analyzes each frame and assesses the likelihood of each behavior being exhibited.
 
-**User-friendly Interface: **The project offers a user-friendly interface for displaying detected behaviors directly on the webcam feed, making it intuitive for users to observe and assess the situation.
+**User-friendly Interface**: The project offers a user-friendly interface for displaying detected behaviors directly on the webcam feed, making it intuitive for users to observe and assess the situation.
 
-**Customizable Thresholds: **The system allows you to customize detection thresholds for each behavior, enabling you to adjust sensitivity and false-positive rates according to specific scenarios.
+**Customizable Thresholds**: The system allows you to customize detection thresholds for each behavior, enabling you to adjust sensitivity and false-positive rates according to specific scenarios.
 
-**State-of-the-art Deep Learning: **The behavior detection is powered by state-of-the-art deep learning models. These models have been pre-trained on a diverse dataset to recognize subtle facial cues associated with the targeted behaviors.
+**State-of-the-art Deep Learning**: The behavior detection is powered by state-of-the-art deep learning models. These models have been pre-trained on a diverse dataset to recognize subtle facial cues associated with the targeted behaviors.
 
-**Efficient Pre-processing: **The project employs efficient image preprocessing techniques to prepare frames for input into the deep learning models. This ensures accurate and reliable behavior predictions.
+**Efficient Pre-processing**: The project employs efficient image preprocessing techniques to prepare frames for input into the deep learning models. This ensures accurate and reliable behavior predictions.
 
-**Ethical Considerations: **The project acknowledges the importance of ethical considerations when using technology for behavior analysis. It aims to contribute to responsible and ethical use of AI in sensitive scenarios.
+**Ethical Considerations**: The project acknowledges the importance of ethical considerations when using technology for behavior analysis. It aims to contribute to responsible and ethical use of AI in sensitive scenarios.
 
 
 
