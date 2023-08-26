@@ -61,3 +61,50 @@ Behavior Detection using Pre-trained Models: The project utilizes pre-trained de
 1. Clone this repository to your local machine using:
    ```sh
    git clone https://github.com/MachinaDominus/srp.git
+
+
+
+## Usage
+
+### Installation
+
+1. Clone this repository to your local machine:
+   ```sh
+   git clone https://github.com/MachinaDominus/srp.git
+
+### Steps 
+1. Navigate to the project directory
+    ```sh
+    cd srp
+2. install the requirements using pip
+    ```sh
+    pip install -r requirements.txt
+
+3. Running the System, Execute the main script to start the lie detection system:
+    ```sh
+    python main.py
+Grant necessary permissions for webcam access.
+
+###Real-time Detection
+Once the system is running, it will analyze the webcam feed in real-time.
+
+Detected behaviors will be highlighted directly on the webcam feed.
+
+###Customization (Optional)
+
+If desired, customize detection thresholds for each behavior:
+Modify the settings in the configuration file.
+
+###Observation and Assessment
+Observe the detected behaviors on the webcam feed.
+
+Assess the likelihood of the person lying or being truthful based on displayed cues.
+
+Ethical Use
+Always consider ethical considerations when using the system for behavior analysis.
+
+Use technology responsibly, respecting privacy and consent.
+
+
+
+
