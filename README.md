@@ -1,4 +1,4 @@
-# Socially relevant project
+# Socially Relevant Project
 
 # Facial Expression-Based Lie Detection System
 
