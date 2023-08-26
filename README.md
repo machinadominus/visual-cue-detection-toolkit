@@ -1,4 +1,4 @@
-# srp
+# Socially relevant project
 
 # Facial Expression-Based Lie Detection System
 
@@ -30,14 +30,10 @@ This project is built with the vision of enhancing the efficiency and accuracy o
 Behavior Detection using Pre-trained Models: The project utilizes pre-trained deep learning models to detect a range of behaviors, including:
 
 - Raised eyebrows
-- Gaze aversion
-- Sweating
 - Trembling hands
 - Avoiding eye contact
-- Tense facial muscles
 - Eyes squinting
 - Lip twitching
-- Flaring nostrils
 - Crossing arms
   
 **Real-time Detection**:The system provides real-time behavior detection through the webcam stream. It analyzes each frame and assesses the likelihood of each behavior being exhibited.
