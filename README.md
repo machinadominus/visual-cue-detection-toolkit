@@ -40,4 +40,4 @@ This project is built with the vision of enhancing the efficiency and accuracy o
 
 1. Clone this repository to your local machine using:
    ```sh
-   git clone https://github.com/yourusername/lie-detection-facial-expressions.git
+   git clone https://github.com/MachinaDominus/srp.git
