@@ -85,22 +85,24 @@ Behavior Detection using Pre-trained Models: The project utilizes pre-trained de
     python main.py
 Grant necessary permissions for webcam access.
 
-###Real-time Detection
+**Real-time Detection**
+
 Once the system is running, it will analyze the webcam feed in real-time.
 
 Detected behaviors will be highlighted directly on the webcam feed.
 
-###Customization (Optional)
+**Customization (Optional)**
 
 If desired, customize detection thresholds for each behavior:
 Modify the settings in the configuration file.
 
-###Observation and Assessment
+**Observation and Assessment**
 Observe the detected behaviors on the webcam feed.
 
 Assess the likelihood of the person lying or being truthful based on displayed cues.
 
-Ethical Use
+**Ethical Use**
+
 Always consider ethical considerations when using the system for behavior analysis.
 
 Use technology responsibly, respecting privacy and consent.
