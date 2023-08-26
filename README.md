@@ -27,11 +27,31 @@ This project is built with the vision of enhancing the efficiency and accuracy o
 
 ## Features
 
-- Detects facial expressions associated with lying, such as microexpressions and deviations from baseline behavior.
-- Provides real-time feedback to interrogators during interviews or interrogations.
-- Offers a user-friendly interface for inputting video streams or images.
-- Generates confidence scores to indicate the system's confidence level in the prediction.
-- Customizable threshold settings to control the sensitivity of the lie detection.
+Behavior Detection using Pre-trained Models: The project utilizes pre-trained deep learning models to detect a range of behaviors, including:
+
+- Raised eyebrows
+- Gaze aversion
+- Sweating
+- Trembling hands
+- Avoiding eye contact
+- Tense facial muscles
+- Eyes squinting
+- Lip twitching
+- Flaring nostrils
+- Crossing arms
+#Real-time Detection: The system provides real-time behavior detection through the webcam stream. It analyzes each frame and assesses the likelihood of each behavior being exhibited.
+
+#User-friendly Interface: The project offers a user-friendly interface for displaying detected behaviors directly on the webcam feed, making it intuitive for users to observe and assess the situation.
+
+#Customizable Thresholds: The system allows you to customize detection thresholds for each behavior, enabling you to adjust sensitivity and false-positive rates according to specific scenarios.
+
+#State-of-the-art Deep Learning: The behavior detection is powered by state-of-the-art deep learning models. These models have been pre-trained on a diverse dataset to recognize subtle facial cues associated with the targeted behaviors.
+
+#Efficient Pre-processing: The project employs efficient image preprocessing techniques to prepare frames for input into the deep learning models. This ensures accurate and reliable behavior predictions.
+
+#Ethical Considerations: The project acknowledges the importance of ethical considerations when using technology for behavior analysis. It aims to contribute to responsible and ethical use of AI in sensitive scenarios.
+
+
 
 ## Demo
 
