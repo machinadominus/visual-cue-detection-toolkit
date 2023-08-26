@@ -87,25 +87,23 @@ Grant necessary permissions for webcam access.
 
 **Real-time Detection**
 
-Once the system is running, it will analyze the webcam feed in real-time.
-
-Detected behaviors will be highlighted directly on the webcam feed.
+1. Once the system is running, it will analyze the webcam feed in real-time.
+2. Detected behaviors will be highlighted directly on the webcam feed.
 
 **Customization (Optional)**
 
-If desired, customize detection thresholds for each behavior:
-Modify the settings in the configuration file.
+1. If desired, customize detection thresholds for each behavior:
+2. Modify the settings in the configuration file.
 
 **Observation and Assessment**
-Observe the detected behaviors on the webcam feed.
 
-Assess the likelihood of the person lying or being truthful based on displayed cues.
+1. Observe the detected behaviors on the webcam feed.
+2. Assess the likelihood of the person lying or being truthful based on displayed cues.
 
 **Ethical Use**
 
-Always consider ethical considerations when using the system for behavior analysis.
-
-Use technology responsibly, respecting privacy and consent.
+1. Always consider ethical considerations when using the system for behavior analysis.
+2. Use technology responsibly, respecting privacy and consent.
 
 
 
