@@ -107,4 +107,126 @@ Grant necessary permissions for webcam access.
 
 
 
+## Dataset
+
+The training and evaluation of the Facial Expression-Based Lie Detection System were conducted using a carefully curated dataset that includes a diverse range of facial expressions and behaviors. The dataset was collected with the following considerations:
+
+- **Size**: The dataset contains a substantial number of samples to ensure model generalization and robustness.
+
+- **Variety**: It encompasses a wide variety of facial expressions, encompassing different ages, genders, ethnicities, and emotional states.
+
+- **Ethical Considerations**: The dataset was collected in accordance with ethical guidelines, ensuring the privacy and consent of individuals participating in data collection.
+
+- **Annotations**: Each sample in the dataset is annotated with labels corresponding to the specific behaviors or expressions exhibited.
+
+- **Validation Split**: The dataset was divided into training, validation, and testing subsets to assess the model's performance effectively.
+
+- **Data Augmentation**: To enhance model performance, data augmentation techniques were applied to the dataset, increasing its diversity and variability.
+
+Please note that due to privacy concerns and ethical considerations, the dataset used in this project may not be publicly available. However, there are publicly available facial expression datasets that you can explore for similar purposes, such as the CK+ dataset, AffectNet, or the MMI facial expression database.
+
+For information about how to access and use specific datasets, refer to their respective documentation and terms of use.
+
+
+
+## Model
+
+The Facial Expression-Based Lie Detection System utilizes a state-of-the-art deep learning model for accurate behavior and expression recognition. The model architecture and training process were designed to achieve high performance in real-time detection scenarios.
+
+### Model Architecture
+
+The deep learning model employs a Convolutional Neural Network (CNN) architecture that has been fine-tuned to identify subtle facial cues associated with different behaviors and expressions. The architecture consists of multiple convolutional layers, pooling layers, and fully connected layers to effectively capture spatial features in the input facial images.
+
+### Training
+
+The model was trained on a carefully curated dataset, encompassing diverse facial expressions and behaviors. The training process involved the following steps:
+
+- Data Preprocessing: Images were resized, normalized, and augmented to ensure model robustness.
+
+- Model Initialization: A pre-trained CNN architecture was used as a base, leveraging transfer learning for improved performance.
+
+- Fine-tuning: The model was fine-tuned on the specific behavior and expression detection task using appropriate loss functions and optimization techniques.
+
+- Validation and Testing: Validation and testing subsets from the dataset were used to monitor and evaluate the model's performance at different stages of training.
+
+### Performance
+
+The trained model demonstrated impressive accuracy and speed in real-time behavior detection. It successfully identifies and highlights behaviors such as raised eyebrows, trembling hands, avoiding eye contact, squinting eyes, twitching lips, and crossing arms.
+
+Please note that the exact architecture and implementation details may vary depending on the specific version of the project and the underlying deep learning framework used.
+
+For more technical details about the model architecture, training process, and hyperparameters, refer to the project's code and documentation.
+
+
+
+
+## Contributing
+
+Thank you for considering contributing to the Facial Expression-Based Lie Detection System! Contributions from the open-source community help improve and enhance the project for everyone.
+
+### How to Contribute
+
+1. Fork the Repository: Start by forking this repository to your GitHub account.
+
+2. Clone the Fork: Clone your forked repository to your local development environment.
+
+   ```sh
+   git clone https://github.com/YourUsername/srp.git
+   
+1. Create a Branch: Create a new branch for your work. 
+    ```sh
+    git checkout -b feature/new-feature
+
+2. Make Changes: Make your desired changes and improvements to the project.
+
+3. Test: Ensure that your changes work as intended and do not introduce any unexpected issues.
+
+4. Commit and Push: Commit your changes and push them to your forked repository.
+    ```sh
+    git add .
+    git commit -m "Add your descriptive commit message"
+    git push origin feature/new-feature
+    
+5. Create a Pull Request: Open a pull request from your forked repository to this main repository. Provide a clear and descriptive title and explanation of your changes.
+
+
+**Code Style and Guidelines**
+
+1. Follow the existing code style and formatting used in the project.
+2. Keep your code clean, well-documented, and modular.
+3. If your contribution involves new features or significant changes, consider updating the documentation accordingly.
+
+**Feedback and Issues**
+
+If you encounter any issues, have questions, or want to provide feedback, please open an issue in the repository. We value your input and will work together to address any concerns.
+
+**Attribution**
+
+Contributors will be acknowledged and credited in the project's documentation. Your contributions help make this project more valuable and impactful for the community.
+
+Thank you for your interest in contributing to the Facial Expression-Based Lie Detection System!
+
+
+MIT License
+
+Copyright (c) 2023 Mohammed Sohail
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
 
