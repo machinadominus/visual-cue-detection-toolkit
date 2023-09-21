@@ -1,107 +1,158 @@
-import torch
-from torchvision import transforms
 import cv2
+import dlib
+import numpy as np
+from fer import FER
+import mediapipe as mp
 
-# Loading pretrained models using torch.hub.load()
-model_detect_raised_eyebrows = torch.hub.load('MachinaDominus/srp', 'raised_eyebrows', pretrained=True)
-model_detect_raised_eyebrows.eval()
+# Load Haar Cascade classifiers for face and eye detection
+face_cascade = cv2.CascadeClassifier('/home/sohail/computer science/yo/data/haarcascade_frontalface_default.xml')
+eye_cascade = cv2.CascadeClassifier('/home/sohail/computer science/yo/data/haarcascade_eye.xml')
 
-model_detect_trembling_hands = torch.hub.load('MachinaDominus/srp', 'trembling_hands', pretrained=True)
-model_detect_trembling_hands.eval()
+# Initialize dlib's face detector and facial landmark predictor for blink and gaze detection
+detector_blink = dlib.get_frontal_face_detector()
+predictor_blink = dlib.shape_predictor("/home/sohail/computer science/yo/facial-landmarks-recognition/shape_predictor_68_face_landmarks.dat")
+detector_gaze = dlib.get_frontal_face_detector()
+predictor_gaze = dlib.shape_predictor("/home/sohail/computer science/yo/facial-landmarks-recognition/shape_predictor_68_face_landmarks.dat")
 
-model_detect_avoiding_eye_contact = torch.hub.load('MachinaDominus/srp', 'avoiding_eye_contact', pretrained=True)
-model_detect_avoiding_eye_contact.eval()
+# Initialize some variables for blink detection
+blink_counter = 0
+frame_counter = 0
+blink_rate = 0.0
+blink_rate_display = "Blink Rate: {:.2f}".format(blink_rate)
 
-model_detect_eyes_squinting = torch.hub.load('MachinaDominus/srp', 'eyes_squinting', pretrained=True)
-model_detect_eyes_squinting.eval()
+# Function to calculate the eye aspect ratio (EAR) for blink detection
+def eye_aspect_ratio(eye):
+    A = np.linalg.norm(eye[1] - eye[5])
+    B = np.linalg.norm(eye[2] - eye[4])
+    C = np.linalg.norm(eye[0] - eye[3])
+    ear = (A + B) / (2.0 * C)
+    return ear
 
-model_detect_lip_twiching = torch.hub.load('MachinaDominus/srp', 'lip_twitching', pretrained=True)
-model_detect_lip_twiching.eval()
+# Function to determine gaze direction
+def determine_gaze_direction(left_eye_center, right_eye_center):
+    eye_angle = np.arctan2(
+        left_eye_center[1] - right_eye_center[1],
+        left_eye_center[0] - right_eye_center[0]
+    )
+    eye_angle_deg = np.degrees(eye_angle)
+    
+    if abs(eye_angle_deg) < 10:
+        gaze_direction = "Center"
+    elif eye_angle_deg < -10:
+        gaze_direction = "Left"
+    else:
+        gaze_direction = "Right"
+    
+    return gaze_direction
 
-model_detect_crossing_arms = torch.hub.load('MachinaDominus/srp', 'crossing_arms', pretrained=True)
-model_detect_crossing_arms.eval()
+# Initialize FER for emotion detection
+emotion_detector = FER(mtcnn=True)
 
-# Transformation for pre-processing images
-transform = transforms.Compose([
-    transforms.ToPILImage(),
-    transforms.Resize((224, 224)),
-    transforms.ToTensor(),
-    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-])
-
-# Functions for behavior detection
-def detect_raised_eyebrows(frame):
-    input_tensor = transform(frame).unsqueeze(0)
-    raised_eyebrows_detection_result = model_detect_raised_eyebrows(input_tensor)
-    raised_eyebrows_detected = False
-    return raised_eyebrows_detected
-
-def detect_trembling_hands(frame):
-    input_tensor = transform(frame).unsqueeze(0)
-    trembling_hands_detection_result = model_detect_trembling_hands(input_tensor)
-    trembling_hands_detected = False
-    return trembling_hands_detected
-
-def detect_avoiding_eye_contact(frame):
-    input_tensor = transform(frame).unsqueeze(0)
-    avoiding_eye_contact_detection_result = model_detect_avoiding_eye_contact(input_tensor)
-    avoiding_eye_contact_detected = False
-    return avoiding_eye_contact_detected
-
-def detect_eyes_squinting(frame):
-    input_tensor = transform(frame).unsqueeze(0)
-    eyes_squinting_detection_result = model_detect_eyes_squinting(input_tensor)
-    eyes_squinting_detected = False
-    return eyes_squinting_detected
-
-def detect_lip_twiching(frame):
-    input_tensor = transform(frame).unsqueeze(0)
-    lip_twiching_detection_result = model_detect_lip_twiching(input_tensor)
-    lip_twiching_detected = False
-    return lip_twiching_detected
-
-def detect_crossing_arms(frame):
-    input_tensor = transform(frame).unsqueeze(0)
-    crossing_arms_detection_result = model_detect_crossing_arms(input_tensor)
-    crossing_arms_detected = False
-    return crossing_arms_detected
-
-# Capture video from webcam
+# Initialize video capture (you can change the parameter to your camera index)
 cap = cv2.VideoCapture(0)
 
+# Create a MediaPipe Hands object
+mp_hands = mp.solutions.hands
+hands = mp_hands.Hands()
+
 while cap.isOpened():
+    # Read a frame from the camera
     ret, frame = cap.read()
     if not ret:
-        break
+        continue
 
-    raised_eyebrows_detected = detect_raised_eyebrows(frame)
-    trembling_hands_detected = detect_trembling_hands(frame)
-    avoiding_eye_contact_detected = detect_avoiding_eye_contact(frame)
-    eyes_squinting_detected = detect_eyes_squinting(frame)
-    lip_twiching_detected = detect_lip_twiching(frame)
-    crossing_arms_detected = detect_crossing_arms(frame)
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    if raised_eyebrows_detected:
-        cv2.putText(frame, "Raised Eyebrows Detected", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+    # Detect faces using Haar Cascade classifier
+    faces_haar = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5, minSize=(30, 30))
 
-    if trembling_hands_detected:
-        cv2.putText(frame, "Trembling Hands Detected", (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+    for (x, y, w, h) in faces_haar:
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+        roi_gray = gray[y:y + h, x:x + w]
+        roi_color = frame[y:y + h, x:x + w]
 
-    if avoiding_eye_contact_detected:
-        cv2.putText(frame, "Avoiding Eye Contact Detected", (10, 180), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+        # Detect eyes within the face region
+        eyes_haar = eye_cascade.detectMultiScale(roi_gray)
+        for (ex, ey, ew, eh) in eyes_haar:
+            cv2.rectangle(roi_color, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
 
-    if eyes_squinting_detected:
-        cv2.putText(frame, "Eyes Squinting Detected", (10, 240), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+    # Detect faces for blink detection
+    faces_blink = detector_blink(gray)
 
-    if lip_twiching_detected:
-        cv2.putText(frame, "Lip Twitching Detected", (10, 270), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+    for face in faces_blink:
+        shape = predictor_blink(gray, face)
+        shape = np.array([[point.x, point.y] for point in shape.parts()])
 
-    if crossing_arms_detected:
-        cv2.putText(frame, "Crossing Arms Detected", (10, 330), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+        left_eye = shape[36:42]
+        right_eye = shape[42:48]
 
-    cv2.imshow("Behavior Detection", frame)
+        left_ear = eye_aspect_ratio(left_eye)
+        right_ear = eye_aspect_ratio(right_eye)
+
+        ear = (left_ear + right_ear) / 2.0
+
+        if ear < 0.2:
+            blink_counter += 1
+
+        frame_counter += 1
+
+    # Calculate blink rate
+    if frame_counter > 1:
+        blink_rate = blink_counter / frame_counter
+
+    # Display blink rate on the frame
+    blink_rate_display = "Blink Rate: {:.2f}".format(blink_rate)
+    cv2.putText(frame, blink_rate_display, (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+
+    # Detect faces for gaze direction detection
+    faces_gaze = detector_gaze(gray)
+
+    for face in faces_gaze:
+        shape = predictor_gaze(gray, face)
+        shape = np.array([[point.x, point.y] for point in shape.parts()])
+
+        left_eye = shape[42:48]
+        right_eye = shape[36:42]
+
+        left_eye_center = np.mean(left_eye, axis=0).astype(int)
+        right_eye_center = np.mean(right_eye, axis=0).astype(int)
+
+        gaze_direction = determine_gaze_direction(left_eye_center, right_eye_center)
+
+        cv2.putText(frame, f'Gaze Direction: {gaze_direction}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+
+    # Detect hands using MediaPipe Hands
+    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    hands_results = hands.process(rgb_frame)
+
+    if hands_results.multi_hand_landmarks:
+        for hand_landmarks in hands_results.multi_hand_landmarks:
+            # Extract relevant hand landmarks
+            hand_landmarks_list = [(int(landmark.x * frame.shape[1]), int(landmark.y * frame.shape[0])) for landmark in hand_landmarks.landmark]
+            
+            # Check if hand landmarks intersect with any detected faces
+            for (x, y, w, h) in faces_haar:
+                # Check if any hand landmark is within the bounding box of the face
+                for landmark_x, landmark_y in hand_landmarks_list:
+                    if x < landmark_x < x + w and y < landmark_y < y + h:
+                        cv2.putText(frame, "Hand covering face", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+                        break  # No need to check other landmarks for this face
+
+    # Perform face detection and emotion analysis
+    results = emotion_detector.detect_emotions(frame)
+
+    for result in results:
+        emotions = result['emotions']
+        dominant_emotion = max(emotions, key=lambda x: emotions[x])
+        cv2.putText(frame, f'Emotion: {dominant_emotion}', (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+
+    # Display the frame with detected faces, emotions, and additional annotations
+    cv2.imshow('Combined Detection', frame)
+
+    # Exit the program when 'q' is pressed
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
+# Release the video capture and close all OpenCV windows
 cap.release()
 cv2.destroyAllWindows()
