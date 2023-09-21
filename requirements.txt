@@ -1,5 +1,10 @@
+opencv-python==4.8.0
+dlib==19.21.0
+numpy==1.24.3
+fer==22.5.1  # Assuming "fer" is the correct package name, replace it with the actual package name if needed
+mediapipe==0.10.5
 torch==1.9.0
 torchvision==0.10.0
-opencv-python==4.5.3
-numpy==1.21.2
-
+tensorflow==2.7.0
+scikit-learn==0.24.2
+imbalanced-learn==0.8.1
