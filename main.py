@@ -1,18 +1,24 @@
 import cv2
 import dlib
 import numpy as np
-from fer import FER
 import mediapipe as mp
+from fer import FER
+
+# Initialize the FER model for emotion detection
+fer_detector = FER()
 
 # Load Haar Cascade classifiers for face and eye detection
-face_cascade = cv2.CascadeClassifier('/home/sohail/computer science/yo/data/haarcascade_frontalface_default.xml')
-eye_cascade = cv2.CascadeClassifier('/home/sohail/computer science/yo/data/haarcascade_eye.xml')
+# Load Haar Cascade classifiers for face and eye detection
+face_cascade = cv2.CascadeClassifier('C:/Users/sohail/Downloads/srp-main/srp-main/pretrained/haarcascade_frontalface_default.xml')
+eye_cascade = cv2.CascadeClassifier('C:/Users/sohail/Downloads/srp-main/srp-main/pretrained/haarcascade_eye.xml')
 
 # Initialize dlib's face detector and facial landmark predictor for blink and gaze detection
 detector_blink = dlib.get_frontal_face_detector()
-predictor_blink = dlib.shape_predictor("/home/sohail/computer science/yo/facial-landmarks-recognition/shape_predictor_68_face_landmarks.dat")
+predictor_blink = dlib.shape_predictor('C:/Users/sohail/Downloads/srp-main/srp-main/pretrained/shape_predictor_68_face_landmarks.dat')
 detector_gaze = dlib.get_frontal_face_detector()
-predictor_gaze = dlib.shape_predictor("/home/sohail/computer science/yo/facial-landmarks-recognition/shape_predictor_68_face_landmarks.dat")
+predictor_gaze = dlib.shape_predictor('C:/Users/sohail/Downloads/srp-main/srp-main/pretrained/shape_predictor_68_face_landmarks.dat')
+
+# Rest of your code...
 
 # Initialize some variables for blink detection
 blink_counter = 0
@@ -23,7 +29,7 @@ blink_rate_display = "Blink Rate: {:.2f}".format(blink_rate)
 # Function to calculate the eye aspect ratio (EAR) for blink detection
 def eye_aspect_ratio(eye):
     A = np.linalg.norm(eye[1] - eye[5])
-    B = np.linalg.norm(eye[2] - eye[4])
+    B = np.linalg.norm (eye[2] - eye[4])
     C = np.linalg.norm(eye[0] - eye[3])
     ear = (A + B) / (2.0 * C)
     return ear
@@ -44,9 +50,6 @@ def determine_gaze_direction(left_eye_center, right_eye_center):
         gaze_direction = "Right"
     
     return gaze_direction
-
-# Initialize FER for emotion detection
-emotion_detector = FER(mtcnn=True)
 
 # Initialize video capture (you can change the parameter to your camera index)
 cap = cv2.VideoCapture(0)
@@ -138,13 +141,15 @@ while cap.isOpened():
                         cv2.putText(frame, "Hand covering face", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
                         break  # No need to check other landmarks for this face
 
-    # Perform face detection and emotion analysis
-    results = emotion_detector.detect_emotions(frame)
+    # Use the FER model to detect emotions in the frame
+    emotions = fer_detector.detect_emotions(frame)
 
-    for result in results:
-        emotions = result['emotions']
-        dominant_emotion = max(emotions, key=lambda x: emotions[x])
-        cv2.putText(frame, f'Emotion: {dominant_emotion}', (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+    if emotions:
+        # Get the emotion with the highest confidence
+        emotion = max(emotions[0]['emotions'], key=emotions[0]['emotions'].get)
+
+        # Display the emotion on the frame
+        cv2.putText(frame, emotion, (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 
     # Display the frame with detected faces, emotions, and additional annotations
     cv2.imshow('Combined Detection', frame)
