@@ -55,11 +55,14 @@ The **Facial Expression-Based Lie Detection System** is an advanced computer vis
 1. Navigate to the project directory
     ```sh
     cd srp
-2. install the requirements using pip
+2. Activate your environment
+   ```sh
+   myenv\Scripts\activate
+3. install the requirements using pip
     ```sh
     pip install -r requirements.txt
 
-3. Running the System, Execute the main script to start the lie detection system:
+4. Running the System, Execute the main script to start the lie detection system:
     ```sh
     python main.py
 Grant necessary permissions for webcam access.
