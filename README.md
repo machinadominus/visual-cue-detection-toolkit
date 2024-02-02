@@ -12,8 +12,6 @@ credits : https://www.analyticsinsight.net/ai-in-forensic-investigation-and-crim
 
 - [Introduction](#introduction)
 - [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -32,40 +30,6 @@ The **Facial Expression-Based Lie Detection System** is an advanced computer vis
 ## Demo
 
 ![Demo GIF](demo.gif)
-
-[Watch the full demo video](demo_video_link)
-
-## Installation
-
-1. Clone this repository to your local machine using:
-   ```sh
-   git clone https://github.com/MachinaDominus/srp.git
-
-
-
-## Usage
-
-### Installation
-
-1. Clone this repository to your local machine:
-   ```sh
-   git clone https://github.com/MachinaDominus/srp.git
-
-### Steps 
-1. Navigate to the project directory
-    ```sh
-    cd srp
-2. Activate your environment
-   ```sh
-   myenv\Scripts\activate
-3. install the requirements using pip
-    ```sh
-    pip install -r requirements.txt
-
-4. Running the System, Execute the main script to start the lie detection system:
-    ```sh
-    python main.py
-Grant necessary permissions for webcam access.
 
 **Real-time Detection**
 
